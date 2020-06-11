@@ -19,8 +19,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - uses: actions/checkout@v1
       - name: Trigger Jenkins job
-        run: cat "./$GITHUB_WORKSPACE/test2"
-#        run: python ./.github/workflows/jenkins-executer.py victormartinez:${{ secrets.TOKEN }} https://jenkins.mrjeffapp.net k8s-module-jeff-pull-request-tester
+        run: python $GITHUB_WORKSPACE/.github/workflows/jenkins-executer.py victormartinez:${{ secrets.TOKEN }} https://jenkins.mrjeffapp.net k8s-module-jeff-pull-request-tester
       - name: Delete SG rule
         if: ${{ always() }}
         run: aws ec2 revoke-security-group-ingress --group-name github-actions-to-jenkins --protocol tcp --port 443 --cidr ${{ steps.ip.outputs.ipv4 }}/32 --region eu-west-1
