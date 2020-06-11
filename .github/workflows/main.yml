@@ -1,4 +1,4 @@
-name: List S3 Contents - Multi OS
+name: Update SG
 
 on:
   push
@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: chrislennon/action-aws-cli@v1.1
       # All commands after this point have access to the AWS CLI
-      - run: aws s3 ls
+      - run: aws ec2 authorize-security-group-ingress --group-name github-actions-to-jenkins --protocol tcp --port 22 --cidr 203.0.113.0/24
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
