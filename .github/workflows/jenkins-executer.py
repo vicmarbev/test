@@ -28,7 +28,7 @@ r = requests.post(start_build_url)
 m = re.match(r"http.+(queue.+)\/", r.headers['Location'])
 if not m:
     # To Do: handle error
-    print "Job started request did not have queue location"
+    print("Job started request did not have queue location")
     sys.exit(1)
 
 # poll the queue looking for job to start
