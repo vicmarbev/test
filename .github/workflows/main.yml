@@ -19,7 +19,7 @@ jobs:
       - name: trigger single Job
         uses: appleboy/jenkins-action@master
         with:
-          url: "https://jenkins.mrjeffapp.net"
+          url: "https://3.250.19.51"
           user: "victormartinez"
           token: ${{ secrets.TOKEN }}
           job: "k8s-module-jeff-pull-request-tester"
