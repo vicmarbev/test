@@ -18,7 +18,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Trigger Jenkins job
-        run: cat ./.github/workflows/main.yaml
+        run: cat "./$GITHUB_WORKSPACE/test2"
 #        run: python ./.github/workflows/jenkins-executer.py victormartinez:${{ secrets.TOKEN }} https://jenkins.mrjeffapp.net k8s-module-jeff-pull-request-tester
       - name: Delete SG rule
         if: ${{ always() }}
