@@ -19,13 +19,13 @@ job_name = sys.argv[3]
 
 # start the build
 #
-start_build_url = 'http://{}@{}/job/{}/build'.format(
+start_build_url = 'https://{}@{}/job/{}/build'.format(
         auth_token, jenkins_uri, job_name)
 r = requests.post(start_build_url)
 
 # from return headers get job queue location
 #
-m = re.match(r"http.+(queue.+)\/", r.headers['Location'])
+m = re.match(r"https.+(queue.+)\/", r.headers['Location'])
 if not m:
     # To Do: handle error
     print("Job started request did not have queue location")
@@ -34,7 +34,7 @@ if not m:
 # poll the queue looking for job to start
 #
 queue_id = m.group(1)
-job_info_url = 'http://{}@{}/{}/api/json'.format(auth_token, jenkins_uri, queue_id)
+job_info_url = 'https://{}@{}/{}/api/json'.format(auth_token, jenkins_uri, queue_id)
 elasped_time = 0 
 print('{} Job {} added to queue: {}'.format(time.ctime(), job_name, job_info_url))
 while True:
@@ -54,7 +54,7 @@ while True:
 
 # poll job status waiting for a result
 #
-job_url = 'http://{}@{}/job/{}/{}/api/json'.format(auth_token, jenkins_uri, job_name, job_id)
+job_url = 'https://{}@{}/job/{}/{}/api/json'.format(auth_token, jenkins_uri, job_name, job_id)
 start_epoch = int(time.time())
 while True:
     print("{}: Job started URL: {}".format(time.ctime(), job_url))
