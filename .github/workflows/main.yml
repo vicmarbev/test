@@ -16,10 +16,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: trigger single Job
-        uses: appleboy/jenkins-action@master
-        with:
-          url: "https://3.250.19.51"
-          user: "victormartinez"
-          token: ${{ secrets.TOKEN }}
-          job: "k8s-module-jeff-pull-request-tester"
+      - name: trigger Jenkins job
+        run: curl -I -u victormartinez:${{ secrets.TOKEN }} https://3.250.19.51/job/k8s-module-jeff-pull-request-tester/build
