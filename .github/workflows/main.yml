@@ -1,17 +1,18 @@
-name: Public IP
-
-on: push
+name: Test Actions
+# Este flujo de trabajo se desencadena en los envíos al repositorio.
+on: [push]
 
 jobs:
   build:
+    # Este archivo se ejecuta en Linux
     runs-on: ubuntu-latest
-
     steps:
-    - name: Public IP
-      id: ip
-      uses: haythem/public-ip@v1
-
-    - name: Print Public IP
-      run: |
-        echo ${{ steps.ip.outputs.ipv4 }}
-        echo ${{ steps.ip.outputs.ipv6 }}
+      - name: Add public IP to AWS security group
+        uses: sohelamin/aws-security-group-add-ip-action@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          aws-security-group-id: ${{ secrets.AWS_SECURITY_GROUP_ID }}
+          port: '443'
+          description: 'GitHub Action'
