@@ -20,7 +20,7 @@ jobs:
       - name: trigger Jenkins job
         run: curl -I -X POST -u victormartinez:${{ secrets.TOKEN }} https://jenkins.mrjeffapp.net/job/k8s-module-jeff-pull-request-tester/build
       - name: Delete SG rule
-        if: ${{ success() }}
+        if: ${{ always() }}
         run: aws ec2 revoke-security-group-ingress --group-name github-actions-to-jenkins --protocol tcp --port 443 --cidr ${{ steps.ip.outputs.ipv4 }}/32 --region eu-west-1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
