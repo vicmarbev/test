@@ -6,9 +6,13 @@ jobs:
   modifySG:
     runs-on: ubuntu-18.04
     steps:
-      - uses: chrislennon/action-aws-cli@v1.1
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1
+      - name: Install aws-cli
+        uses: chrislennon/action-aws-cli@v1.1
       # All commands after this point have access to the AWS CLI
-      - run: aws ec2 authorize-security-group-ingress --group-name github-actions-to-jenkins --protocol tcp --port 22 --cidr 203.0.113.0/24 --region eu-west-1
+      - run: aws ec2 authorize-security-group-ingress --group-name github-actions-to-jenkins --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 --region eu-west-1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
