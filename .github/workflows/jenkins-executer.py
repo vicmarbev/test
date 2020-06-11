@@ -25,6 +25,7 @@ r = requests.post(start_build_url)
 
 # from return headers get job queue location
 #
+print(r.headers['Location'])
 m = re.match(r"https.+(queue.+)\/", r.headers['Location'])
 if not m:
     # To Do: handle error
